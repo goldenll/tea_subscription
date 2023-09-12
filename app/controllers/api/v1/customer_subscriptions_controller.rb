@@ -8,6 +8,16 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     end
   end
 
+  def destroy
+    cs = CustomerSubscription.find_by(customer_id: params[:customer_id], subscription_id: params[:subscription_id])
+    if cs
+      cs.destroy
+      render json: {message: "Subscription successfully canceled"}, status: :ok
+    else
+      render json: {error: "Subscription not found"}, status: :not_found
+    end
+  end
+
   private 
   def customer_subscription_params
     params.permit(:customer_id, :subscription_id)
