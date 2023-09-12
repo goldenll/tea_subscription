@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Tea Subscription API" do
-  it "has a tea subscription" do
+  it "exists" do
     create(:subscription)
 
     get '/api/v1/subscriptions'
@@ -23,7 +23,7 @@ describe "Tea Subscription API" do
     expect(subscriptions[0][:frequency]).to be_a(String)
   end
 
-  it "can have multiple tea subscriptions" do
+  it "multiple tea subscriptions can exist" do
     create_list(:subscription, 3)
 
     get '/api/v1/subscriptions'

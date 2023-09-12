@@ -111,6 +111,8 @@ GEM
     irb (1.8.1)
       rdoc
       reline (>= 0.3.8)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     launchy (2.5.2)
       addressable (~> 2.8)
     loofah (2.21.3)
@@ -242,6 +244,7 @@ DEPENDENCIES
   faker
   faraday
   figaro
+  jsonapi-serializer
   launchy
   orderly
   pg (~> 1.1)
