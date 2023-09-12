@@ -5,6 +5,7 @@ class CreateSubscriptions < ActiveRecord::Migration[7.0]
       t.float :price
       t.string :status
       t.string :frequency
+      t.string :customer_subscriptions
 
       t.timestamps
     end
