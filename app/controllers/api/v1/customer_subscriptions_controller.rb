@@ -8,6 +8,13 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     end
   end
 
+  def update
+    cs = CustomerSubscription.find_by(customer_id: params[:customer_id], subscription_id: params[:subscription_id])
+    # require 'pry'; binding.pry
+    customer = Customer.find(cs[:customer_id])
+    subscription = Subscription.find(cs[:subscription_id])
+  end
+
   def destroy
     cs = CustomerSubscription.find_by(customer_id: params[:customer_id], subscription_id: params[:subscription_id])
     if cs

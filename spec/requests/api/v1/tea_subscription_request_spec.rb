@@ -17,8 +17,6 @@ describe "Tea Subscription API" do
     expect(subscriptions[0][:title]).to be_a(String)
     expect(subscriptions[0]).to have_key(:price)
     expect(subscriptions[0][:price]).to be_a(Float)
-    expect(subscriptions[0]).to have_key(:status)
-    expect(subscriptions[0][:status]).to be_a(String)
     expect(subscriptions[0]).to have_key(:frequency)
     expect(subscriptions[0][:frequency]).to be_a(String)
   end
@@ -41,8 +39,6 @@ describe "Tea Subscription API" do
       expect(subscription[:title]).to be_a(String)
       expect(subscription).to have_key(:price)
       expect(subscription[:price]).to be_a(Float)
-      expect(subscription).to have_key(:status)
-      expect(subscription[:status]).to be_a(String)
       expect(subscription).to have_key(:frequency)
       expect(subscription[:frequency]).to be_a(String)
     end
