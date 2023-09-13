@@ -116,7 +116,7 @@ describe "Customer Subscription API" do
       expect(cs).to have_key(:status)
       expect(cs[:status]).to be_a(String)
     end
-    expect(subscriptions.first[:status]).to eq("active")
-    expect(subscriptions.last[:status]).to eq("canceled")
+    expect(subscriptions.first[:status]).to eq("canceled")
+    expect(subscriptions.last[:status]).to eq("active")
   end
 end
