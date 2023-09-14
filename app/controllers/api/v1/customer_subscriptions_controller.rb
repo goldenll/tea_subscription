@@ -22,17 +22,7 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
     if cs.save
       render json: { message: "Subscription successfully canceled" }, status: :ok
     else 
-      render json: { error: "Subscription not found" }, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    cs = CustomerSubscription.find_by(customer_id: params[:customer_id], subscription_id: params[:subscription_id])
-    if cs
-      cs.destroy
-      render json: {message: "Subscription successfully canceled"}, status: :ok
-    else
-      render json: {error: "Subscription not found"}, status: :not_found
+      render json: { error: "Request could not be completed" }, status: :unprocessable_entity
     end
   end
 

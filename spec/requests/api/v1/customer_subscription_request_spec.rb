@@ -31,34 +31,6 @@ describe "Customer Subscription API" do
     expect(cs[:subscription]).to have_key(:frequency)
   end
 
-  it "a customer can delete a tea subscription" do
-    subscription1 = create(:subscription)
-    subscription2 = create(:subscription)
-    subscription3 = create(:subscription)
-    customer1 = create(:customer)
-    customer2 = create(:customer)
-
-    post "/api/v1/customers/#{customer1.id}/subscriptions/#{subscription1.id}"
-    post "/api/v1/customers/#{customer2.id}/subscriptions/#{subscription1.id}"
-    post "/api/v1/customers/#{customer1.id}/subscriptions/#{subscription2.id}"
-    post "/api/v1/customers/#{customer1.id}/subscriptions/#{subscription3.id}"
-
-    expect(customer1.customer_subscriptions.count).to eq(3)
-
-    delete "/api/v1/customers/#{customer1.id}/subscriptions/#{subscription1.id}"
-
-    expect(response).to be_successful
-    done = JSON.parse(response.body, symbolize_names: true)
-
-    expect(customer1.customer_subscriptions.count).to eq(2)
-
-    expect(done).to be_a(Hash)
-    expect(done).to have_key(:message)
-    expect(done[:message]).to be_a(String)
-    expect(done[:message]).to eq("Subscription successfully canceled")
-  end
-  # not what we want, we want to return a customers subscription history rather than delete a subscription oops
-
   it "a customer can cancel a tea subscription" do
     subscription1 = create(:subscription)
     subscription2 = create(:subscription)
@@ -120,5 +92,24 @@ describe "Customer Subscription API" do
     # expect(subscriptions.last[:status]).to eq("active")
     expect(subscriptions.first[:status]).to eq("active")
     expect(subscriptions.last[:status]).to eq("canceled")
+  end
+
+  it "returns a custom error if a customer does not have a subscription history" do
+    subscription1 = create(:subscription)
+    subscription2 = create(:subscription)
+    subscription3 = create(:subscription)
+    customer1 = create(:customer)
+    customer2 = create(:customer)
+
+    get "/api/v1/customers/#{customer2.id}/subscriptions"
+
+    expect(response).to_not be_successful
+
+    done = JSON.parse(response.body, symbolize_names: true)
+
+    expect(done).to be_a(Hash)
+    expect(done).to have_key(:error)
+    expect(done[:error]).to be_a(String)
+    expect(done[:error]).to eq("No subscriptions found")
   end
 end
